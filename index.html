@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Passive Voice — Страдательный залог</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/fontsource/fonts/inter@5.0.0/latin-400-500-600-700.css');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --primary: #2dd4bf;
+    --primary-dark: #14b8a6;
+    --secondary: #0f766e;
+    --accent: #f59e0b;
+    --bg: #0f172a;
+    --bg-light: #1e293b;
+    --card: #1e293b;
+    --card-hover: #334155;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --success: #10b981;
+    --danger: #ef4444;
+    --border: #334155;
+  }
+  
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0f172a 0%, #134e4a 50%, #0f172a 100%);
+  }
+  
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(45,212,191,0.15) 0%, transparent 70%);
+    top: -200px;
+    right: -200px;
+    animation: pulse 4s ease-in-out infinite;
+  }
+  
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 70%);
+    bottom: -150px;
+    left: -150px;
+    animation: pulse 5s ease-in-out infinite reverse;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+  }
+  
+  .hero-content {
+    text-align: center;
+    z-index: 2;
+    padding: 2rem;
+    max-width: 900px;
+  }
+  
+  .hero-badge {
+    display: inline-block;
+    background: rgba(45,212,191,0.15);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 0.5rem 1.2rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    animation: fadeDown 0.8s ease;
+  }
+  
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #f1f5f9 0%, #2dd4bf 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeDown 1s ease;
+  }
+  
+  .hero-sub {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    animation: fadeDown 1.2s ease;
+  }
+  
+  .hero-formula {
+    background: rgba(30,41,59,0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 1.4s ease;
+  }
+  
+  .formula-part {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #0f172a;
+    padding: 0.7rem 1.2rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  
+  .formula-op {
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    font-weight: 300;
+  }
+  
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-muted);
+    animation: bounce 2s infinite;
+    font-size: 1.5rem;
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+  }
+  
+  /* Nav */
+  nav {
+    position: sticky;
+    top: 0;
+    background: rgba(15,23,42,0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    padding: 1rem 0;
+  }
+  
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  
+  .nav-inner::-webkit-scrollbar { display: none; }
+  
+  .nav-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  
+  .nav-btn:hover, .nav-btn.active {
+    background: var(--primary);
+    color: #0f172a;
+    border-color: var(--primary);
+  }
+  
+  /* Sections */
+  section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .section-num {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #0f172a;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .section-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+  }
+  
+  /* Tense Table */
+  .tense-table {
+    background: var(--card);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  
+  .tense-header {
+    display: grid;
+    grid-template-columns: 1.2fr 1.4fr 1.4fr;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #0f172a;
+    font-weight: 700;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .tense-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1.4fr 1.4fr;
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+    cursor: pointer;
+    align-items: center;
+  }
+  
+  .tense-row:last-child { border-bottom: none; }
+  
+  .tense-row:hover {
+    background: var(--card-hover);
+    transform: translateX(5px);
+  }
+  
+  .tense-name {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 0.95rem;
+  }
+  
+  .tense-active, .tense-passive {
+    font-size: 0.95rem;
+  }
+  
+  .tense-active em, .tense-passive em {
+    color: var(--accent);
+    font-style: normal;
+    font-weight: 600;
+  }
+  
+  /* Transformation Diagram */
+  .transform-container {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .transform-diagram {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: relative;
+  }
+  
+  .transform-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .transform-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    min-width: 100px;
+  }
+  
+  .transform-box {
+    background: rgba(45,212,191,0.1);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    min-width: 140px;
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+  }
+  
+  .transform-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(45,212,191,0.3);
+  }
+  
+  .transform-box .role {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+  }
+  
+  .transform-box .word {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .transform-box.agent {
+    border-color: var(--accent);
+    background: rgba(245,158,11,0.1);
+  }
+  
+  .transform-arrow {
+    text-align: center;
+    color: var(--primary);
+    font-size: 2rem;
+    animation: arrowPulse 2s infinite;
+  }
+  
+  @keyframes arrowPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  
+  /* Rules Cards */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .rule-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.8rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .rule-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+  }
+  
+  .rule-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 20px 40px rgba(45,212,191,0.15);
+  }
+  
+  .rule-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .rule-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+  }
+  
+  .rule-desc {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  
+  .rule-example {
+    background: rgba(15,23,42,0.6);
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    font-style: italic;
+    border-left: 3px solid var(--accent);
+    font-size: 0.9rem;
+  }
+  
+  /* Use Cases */
+  .usecases {
+    display: grid;
+    gap: 1rem;
+  }
+  
+  .usecase {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .usecase:hover {
+    background: var(--card-hover);
+    transform: translateX(10px);
+    border-color: var(--primary);
+  }
+  
+  .usecase-num {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #0f172a;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  
+  .usecase-content { flex: 1; }
+  
+  .usecase-title {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  
+  .usecase-example {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+  
+  /* By vs With */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  
+  .compare-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: all 0.3s;
+  }
+  
+  .compare-card:hover {
+    transform: scale(1.02);
+    border-color: var(--primary);
+  }
+  
+  .compare-prep {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+  
+  .compare-meaning {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .compare-example {
+    background: rgba(15,23,42,0.6);
+    padding: 1rem;
+    border-radius: 10px;
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+  
+  /* Two Objects */
+  .two-objects {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+  }
+  
+  .verb-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .verb-tag {
+    background: rgba(45,212,191,0.15);
+    color: var(--primary);
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid var(--primary);
+  }
+  
+  .model-demo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .model-box {
+    background: rgba(15,23,42,0.6);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary);
+  }
+  
+  .model-box.rare {
+    border-left-color: var(--accent);
+  }
+  
+  .model-box .label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  
+  .model-box .sentence {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  /* Quiz */
+  .quiz-container {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 2.5rem;
+    border: 1px solid var(--border);
+  }
+  
+  .quiz-progress {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .quiz-dot {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    transition: all 0.3s;
+  }
+  
+  .quiz-dot.done { background: var(--success); }
+  .quiz-dot.current { background: var(--primary); }
+  
+  .quiz-question {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    min-height: 60px;
+  }
+  
+  .quiz-options {
+    display: grid;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .quiz-option {
+    background: rgba(15,23,42,0.6);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--text);
+    text-align: left;
+  }
+  
+  .quiz-option:hover {
+    border-color: var(--primary);
+    background: rgba(45,212,191,0.1);
+  }
+  
+  .quiz-option.correct {
+    border-color: var(--success);
+    background: rgba(16,185,129,0.15);
+  }
+  
+  .quiz-option.wrong {
+    border-color: var(--danger);
+    background: rgba(239,68,68,0.15);
+  }
+  
+  .quiz-option:disabled { cursor: not-allowed; }
+  
+  .quiz-feedback {
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    display: none;
+  }
+  
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct { background: rgba(16,185,129,0.15); border: 1px solid var(--success); }
+  .quiz-feedback.wrong { background: rgba(239,68,68,0.15); border: 1px solid var(--danger); }
+  
+  .quiz-next {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #0f172a;
+    border: none;
+    padding: 0.9rem 2rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  
+  .quiz-next:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(45,212,191,0.4); }
+  .quiz-next:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  
+  .quiz-score {
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .quiz-score-num {
+    font-size: 4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Interactive Builder */
+  .builder {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+  }
+  
+  .builder-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(15,23,42,0.6);
+    border-radius: 12px;
+  }
+  
+  .builder-select {
+    background: var(--bg);
+    color: var(--text);
+    border: 2px solid var(--border);
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    min-width: 150px;
+  }
+  
+  .builder-select:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+  
+  .builder-result {
+    background: linear-gradient(135deg, rgba(45,212,191,0.1), rgba(245,158,11,0.1));
+    border: 2px dashed var(--primary);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .compare-grid, .model-demo { grid-template-columns: 1fr; }
+    .tense-header, .tense-row { grid-template-columns: 1fr; gap: 0.5rem; }
+    .tense-header { display: none; }
+    .tense-row { 
+      grid-template-columns: 1fr; 
+      gap: 0.3rem;
+      padding: 1rem;
+    }
+    .tense-name { margin-bottom: 0.3rem; }
+    .transform-row { flex-direction: column; }
+    .section-title { font-size: 1.8rem; }
+  }
+  
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+  
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"> ENGLISH GRAMMAR</div>
+    <h1>The Passive Voice</h1>
+    <p class="hero-sub">Страдательный залог — полное интерактивное руководство</p>
+    <div class="hero-formula">
+      <div class="formula-part">Subject</div>
+      <span class="formula-op">+</span>
+      <div class="formula-part">to be</div>
+      <span class="formula-op">+</span>
+      <div class="formula-part">V3 / -ed</div>
+      <span class="formula-op">(+ by Agent)</span>
+    </div>
+  </div>
+  <div class="scroll-indicator">↓</div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="scrollTo2('formula')">🧪 Формула</button>
+    <button class="nav-btn" onclick="scrollTo2('tenses')"> Времена</button>
+    <button class="nav-btn" onclick="scrollTo2('transform')">🔄 Трансформация</button>
+    <button class="nav-btn" onclick="scrollTo2('usecases')">💡 Когда использовать</button>
+    <button class="nav-btn" onclick="scrollTo2('rules')">⚠️ Правила</button>
+    <button class="nav-btn" onclick="scrollTo2('two-objects')"> Два дополнения</button>
+    <button class="nav-btn" onclick="scrollTo2('quiz')">🎮 Тест</button>
+  </div>
+</nav>
+
+<!-- FORMULA BUILDER -->
+<section id="formula" class="fade-in">
+  <h2 class="section-title"><span class="section-num">1</span> Интерактивная формула</h2>
+  <p class="section-subtitle">Выберите время и глагол — увидите, как образуется Passive Voice</p>
+  
+  <div class="builder">
+    <div class="builder-row">
+      <label style="color: var(--text-muted); font-weight: 600;">Подлежащее:</label>
+      <select class="builder-select" id="bSubject">
+        <option value="Dinner">Dinner</option>
+        <option value="The book">The book</option>
+        <option value="The letter">The letter</option>
+        <option value="The house">The house</option>
+      </select>
+      
+      <label style="color: var(--text-muted); font-weight: 600;">Время:</label>
+      <select class="builder-select" id="bTense">
+        <option value="Present Simple">Present Simple</option>
+        <option value="Present Continuous">Present Continuous</option>
+        <option value="Past Simple">Past Simple</option>
+        <option value="Past Continuous">Past Continuous</option>
+        <option value="Present Perfect">Present Perfect</option>
+      </select>
+      
+      <label style="color: var(--text-muted); font-weight: 600;">Глагол:</label>
+      <select class="builder-select" id="bVerb">
+        <option value="cook|cooked|cooked">cook</option>
+        <option value="write|wrote|written">write</option>
+        <option value="send|sent|sent">send</option>
+        <option value="build|built|built">build</option>
+      </select>
+      
+      <label style="color: var(--text-muted); font-weight: 600;">Исполнитель:</label>
+      <select class="builder-select" id="bAgent">
+        <option value="by Pam">by Pam</option>
+        <option value="by Tom">by Tom</option>
+        <option value="by the teacher">by the teacher</option>
+        <option value="">(без агента)</option>
+      </select>
+    </div>
+    <div class="builder-result" id="builderResult">Dinner is cooked by Pam.</div>
+  </div>
+</section>
+
+<!-- TENSES -->
+<section id="tenses" class="fade-in">
+  <h2 class="section-title"><span class="section-num">2</span> Таблица времён</h2>
+  <p class="section-subtitle">Как меняется форма to be в разных временах</p>
+  
+  <div class="tense-table">
+    <div class="tense-header">
+      <div>Время</div>
+      <div>Active Voice</div>
+      <div>Passive Voice</div>
+    </div>
+    <div class="tense-row">
+      <div class="tense-name">Present Simple</div>
+      <div class="tense-active">Pam <em>cooks</em> dinner.</div>
+      <div class="tense-passive">Dinner <em>is cooked</em> by Pam.</div>
+    </div>
+    <div class="tense-row">
+      <div class="tense-name">Present Continuous</div>
+      <div class="tense-active">Pam <em>is cooking</em> dinner.</div>
+      <div class="tense-passive">Dinner <em>is being cooked</em> by Pam.</div>
+    </div>
+    <div class="tense-row">
+      <div class="tense-name">Past Simple</div>
+      <div class="tense-active">Pam <em>cooked</em> dinner.</div>
+      <div class="tense-passive">Dinner <em>was cooked</em> by Pam.</div>
+    </div>
+    <div class="tense-row">
+      <div class="tense-name">Past Continuous</div>
+      <div class="tense-active">Pam <em>was cooking</em> dinner.</div>
+      <div class="tense-passive">Dinner <em>was being cooked</em> by Pam.</div>
+    </div>
+    <div class="tense-row">
+      <div class="tense-name">Present Perfect</div>
+      <div class="tense-active">Pam <em>has cooked</em> dinner.</div>
+      <div class="tense-passive">Dinner <em>has been cooked</em> by Pam.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSFORMATION -->
+<section id="transform" class="fade-in">
+  <h2 class="section-title"><span class="section-num">3</span> Трансформация Active → Passive</h2>
+  <p class="section-subtitle">Три шага превращения предложения</p>
+  
+  <div class="transform-container">
+    <div class="transform-diagram">
+      <div class="transform-row">
+        <div class="transform-label">ACTIVE</div>
+        <div class="transform-box">
+          <div class="role">Subject</div>
+          <div class="word">Tom</div>
+        </div>
+        <div class="transform-box">
+          <div class="role">Verb</div>
+          <div class="word">wrote</div>
+        </div>
+        <div class="transform-box">
+          <div class="role">Object</div>
+          <div class="word">a book</div>
+        </div>
+      </div>
+      
+      <div class="transform-arrow">
+        ↓ &nbsp; Object → Subject &nbsp; • &nbsp; Verb → Passive form &nbsp; • &nbsp; Subject → by Agent &nbsp; ↓
+      </div>
+      
+      <div class="transform-row">
+        <div class="transform-label">PASSIVE</div>
+        <div class="transform-box">
+          <div class="role">Subject</div>
+          <div class="word">A book</div>
+        </div>
+        <div class="transform-box">
+          <div class="role">Verb</div>
+          <div class="word">was written</div>
+        </div>
+        <div class="transform-box agent">
+          <div class="role">Agent</div>
+          <div class="word">by Tom</div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="margin-top: 2.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+      <div style="background: rgba(45,212,191,0.1); padding: 1.2rem; border-radius: 12px; border-left: 4px solid var(--primary);">
+        <div style="font-weight: 700; color: var(--primary); margin-bottom: 0.3rem;">① Object → Subject</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted);">Дополнение становится подлежащим</div>
+      </div>
+      <div style="background: rgba(45,212,191,0.1); padding: 1.2rem; border-radius: 12px; border-left: 4px solid var(--primary);">
+        <div style="font-weight: 700; color: var(--primary); margin-bottom: 0.3rem;">② Verb → Passive</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted);">Глагол меняет форму (время сохраняется)</div>
+      </div>
+      <div style="background: rgba(245,158,11,0.1); padding: 1.2rem; border-radius: 12px; border-left: 4px solid var(--accent);">
+        <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.3rem;">③ Subject → by Agent</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted);">Подлежащее → дополнение с <b>by</b> (или опускается)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section id="usecases" class="fade-in">
+  <h2 class="section-title"><span class="section-num">4</span> Когда использовать Passive?</h2>
+  <p class="section-subtitle">5 основных ситуаций</p>
+  
+  <div class="usecases">
+    <div class="usecase">
+      <div class="usecase-num">1</div>
+      <div class="usecase-content">
+        <div class="usecase-title">Неизвестно или неважно, кто выполняет действие</div>
+        <div class="usecase-example">"The window <b>was broken</b>." (We don't know who broke it.)</div>
+      </div>
+    </div>
+    <div class="usecase">
+      <div class="usecase-num">2</div>
+      <div class="usecase-content">
+        <div class="usecase-title">Действие важнее субъекта (заголовки, новости, реклама, инструкции)</div>
+        <div class="usecase-example">"Pets <b>are not allowed</b> into the building."</div>
+      </div>
+    </div>
+    <div class="usecase">
+      <div class="usecase-num">3</div>
+      <div class="usecase-content">
+        <div class="usecase-title">Избежать ответственности за неприятное событие</div>
+        <div class="usecase-example">"Serious damage <b>was caused</b> to the school building."</div>
+      </div>
+    </div>
+    <div class="usecase">
+      <div class="usecase-num">4</div>
+      <div class="usecase-content">
+        <div class="usecase-title">Акцент на действующем лице</div>
+        <div class="usecase-example">"The deal <b>was signed by the president himself</b>."</div>
+      </div>
+    </div>
+    <div class="usecase">
+      <div class="usecase-num">5</div>
+      <div class="usecase-content">
+        <div class="usecase-title">Более официально и вежливо</div>
+        <div class="usecase-example">"This CD <b>has been scratched</b>." (polite vs. "You scratched this CD")</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section id="rules" class="fade-in">
+  <h2 class="section-title"><span class="section-num">5</span> Важные правила</h2>
+  <p class="section-subtitle">Что нужно помнить о страдательном залоге</p>
+  
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-icon">🚫</div>
+      <div class="rule-title">Только переходные глаголы</div>
+      <div class="rule-desc">Глаголы без прямого дополнения не имеют формы пассива</div>
+      <div class="rule-example">❌ An accident was happened last night.</div>
+    </div>
+    
+    <div class="rule-card">
+      <div class="rule-icon">⚡</div>
+      <div class="rule-title">Исключения: have, fit, suit, resemble</div>
+      <div class="rule-desc">Некоторые переходные глаголы не образуют пассив</div>
+      <div class="rule-example"> Her mother is resembled by her.</div>
+    </div>
+    
+    <div class="rule-card">
+      <div class="rule-icon">💬</div>
+      <div class="rule-title">Get вместо be (разговорная речь)</div>
+      <div class="rule-desc">В повседневной речи при обсуждении неожиданных событий</div>
+      <div class="rule-example">"The cheque <b>got lost</b> in the mail."</div>
+    </div>
+    
+    <div class="rule-card">
+      <div class="rule-icon">🗑️</div>
+      <div class="rule-title">Когда можно опустить "by..."</div>
+      <div class="rule-desc">Если подлежащее в Active = they, he, someone, people, one</div>
+      <div class="rule-example">"The door has been left unlocked." (someone)</div>
+    </div>
+    
+    <div class="rule-card">
+      <div class="rule-icon">❓</div>
+      <div class="rule-title">Вопросы с who/whom/which</div>
+      <div class="rule-desc">Предлог <b>by</b> НЕ опускается в вопросах</div>
+      <div class="rule-example">"Who will the tickets <b>be booked by</b>?"</div>
+    </div>
+    
+    <div class="rule-card">
+      <div class="rule-icon">🔒</div>
+      <div class="rule-title">Когда агент ВАЖЕН</div>
+      <div class="rule-desc">Нельзя опустить, если исполнитель важен для смысла</div>
+      <div class="rule-example">"The results will be announced <b>by Mr Allen</b>."</div>
+    </div>
+  </div>
+</section>
+
+<!-- BY vs WITH -->
+<section class="fade-in">
+  <h2 class="section-title"><span class="section-num">6</span> By vs With</h2>
+  <p class="section-subtitle">Два разных предлога — два разных значения</p>
+  
+  <div class="compare-grid">
+    <div class="compare-card">
+      <div class="compare-prep">BY</div>
+      <div class="compare-meaning">Кем совершено действие (исполнитель)</div>
+      <div class="compare-example">"This meal was cooked <b>by</b> a professional chef."</div>
+    </div>
+    <div class="compare-card">
+      <div class="compare-prep">WITH</div>
+      <div class="compare-meaning">Инструмент / материал / ингредиенты</div>
+      <div class="compare-example">"It was made <b>with</b> fresh vegetables and meat."</div>
+    </div>
+  </div>
+</section>
+
+<!-- TWO OBJECTS -->
+<section id="two-objects" class="fade-in">
+  <h2 class="section-title"><span class="section-num">7</span> Глаголы с двумя дополнениями</h2>
+  <p class="section-subtitle">bring, tell, send, show, teach, promise, sell, read, offer, give, lend</p>
+  
+  <div class="two-objects">
+    <div class="verb-list">
+      <span class="verb-tag">bring</span>
+      <span class="verb-tag">tell</span>
+      <span class="verb-tag">send</span>
+      <span class="verb-tag">show</span>
+      <span class="verb-tag">teach</span>
+      <span class="verb-tag">promise</span>
+      <span class="verb-tag">sell</span>
+      <span class="verb-tag">read</span>
+      <span class="verb-tag">offer</span>
+      <span class="verb-tag">give</span>
+      <span class="verb-tag">lend</span>
+    </div>
+    
+    <div style="margin-bottom: 1.5rem; padding: 1rem; background: rgba(15,23,42,0.6); border-radius: 10px;">
+      <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.3rem;">Active:</div>
+      <div style="font-size: 1.1rem; font-weight: 600;">They offered him a job.</div>
+    </div>
+    
+    <div class="model-demo">
+      <div class="model-box">
+        <div class="label">✅ ЧАСТО ИСПОЛЬЗУЕМАЯ МОДЕЛЬ</div>
+        <div class="sentence">He <b>was offered</b> a job.</div>
+      </div>
+      <div class="model-box rare">
+        <div class="label">⚠️ РЕДКО ИСПОЛЬЗУЕМАЯ МОДЕЛЬ</div>
+        <div class="sentence">A job <b>was offered</b> to him.</div>
+      </div>
+    </div>
+    
+    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(245,158,11,0.1); border-radius: 12px; border-left: 4px solid var(--accent);">
+      <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.5rem;">⚠️ НО! explain, announce, dictate, read, write → только одна модель:</div>
+      <div style="font-size: 0.95rem;">"A new rule <b>was explained to</b> the students." ✅</div>
+      <div style="font-size: 0.95rem; color: var(--danger); margin-top: 0.3rem;">~~The students were explained a new rule.~~ ❌</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" class="fade-in">
+  <h2 class="section-title"><span class="section-num">8</span> Проверь себя</h2>
+  <p class="section-subtitle">Мини-тест из 5 вопросов</p>
+  
+  <div class="quiz-container">
+    <div class="quiz-progress" id="quizProgress"></div>
+    <div id="quizContent"></div>
+  </div>
+</section>
+
+<footer>
+  <div style="font-size: 1.5rem; margin-bottom: 0.5rem;"></div>
+  <div style="font-weight: 600;">The Passive Voice — Страдательный залог</div>
+  <div style="font-size: 0.9rem; margin-top: 0.5rem;">Интерактивное руководство по английской грамматике</div>
+</footer>
+
+<script>
+// Navigation
+function scrollTo2(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// Builder
+const builderData = {
+  'Present Simple': { be: ['is','are','is','is'], v3pos: 2 },
+  'Present Continuous': { be: ['is being','are being','is being','is being'], v3pos: 2 },
+  'Past Simple': { be: ['was','were','was','was'], v3pos: 2 },
+  'Past Continuous': { be: ['was being','were being','was being','was being'], v3pos: 2 },
+  'Present Perfect': { be: ['has been','have been','has been','has been'], v3pos: 2 }
+};
+
+function updateBuilder() {
+  const subj = document.getElementById('bSubject').value;
+  const tense = document.getElementById('bTense').value;
+  const verbParts = document.getElementById('bVerb').value.split('|');
+  const agent = document.getElementById('bAgent').value;
+  
+  const v3 = verbParts[2];
+  const beForm = builderData[tense].be[0];
+  
+  let result = `${subj} ${beForm} ${v3}`;
+  if (agent) result += ` ${agent}`;
+  result += '.';
+  
+  document.getElementById('builderResult').textContent = result;
+}
+
+['bSubject','bTense','bVerb','bAgent'].forEach(id => {
+  document.getElementById(id).addEventListener('change', updateBuilder);
+});
+
+// Quiz
+const quizQuestions = [
+  {
+    q: 'Выберите правильную форму Passive Voice: "The letter ___ yesterday."',
+    options: ['was sent', 'is sent', 'has sent', 'sent'],
+    correct: 0,
+    explanation: 'Past Simple Passive = was/were + V3. "was sent" — правильно.'
+  },
+  {
+    q: 'Какое предложение НЕ может быть в Passive Voice?',
+    options: ['An accident happened.', 'The book was read.', 'Dinner is cooked.', 'The letter was sent.'],
+    correct: 0,
+    explanation: '"Happen" — непереходный глагол, у него нет формы пассива.'
+  },
+  {
+    q: 'Выберите правильный вариант: "This cake was made ___ fresh ingredients."',
+    options: ['by', 'with', 'from', 'at'],
+    correct: 1,
+    explanation: 'WITH используется для инструментов/материалов/ингредиентов.'
+  },
+  {
+    q: 'Какое предложение образовано правильно?',
+    options: [
+      'A new rule was explained the students.',
+      'The students were explained a new rule.',
+      'A new rule was explained to the students.',
+      'A new rule explained to the students.'
+    ],
+    correct: 2,
+    explanation: 'Глагол explain образует только одну модель пассива: "A new rule was explained to the students."'
+  },
+  {
+    q: 'В каком случае агент (by...) НЕ опускается?',
+    options: [
+      'Someone broke the window.',
+      'People speak English here.',
+      'The results will be announced by Mr Allen.',
+      'They built this house in 1990.'
+    ],
+    correct: 2,
+    explanation: 'Агент не опускается, если он важен для смысла предложения (Mr Allen).'
+  }
+];
+
+let currentQ = 0;
+let score = 0;
+let answered = false;
+
+function renderQuiz() {
+  const progressHtml = quizQuestions.map((_, i) => {
+    let cls = 'quiz-dot';
+    if (i < currentQ) cls += ' done';
+    else if (i === currentQ) cls += ' current';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+  document.getElementById('quizProgress').innerHTML = progressHtml;
+  
+  if (currentQ >= quizQuestions.length) {
+    const pct = Math.round((score / quizQuestions.length) * 100);
+    let msg = '';
+    if (pct === 100) msg = '🏆 Отлично! Вы мастер Passive Voice!';
+    else if (pct >= 60) msg = ' Хороший результат!';
+    else msg = '📚 Стоит повторить материал.';
+    
+    document.getElementById('quizContent').innerHTML = `
+      <div class="quiz-score">
+        <div class="quiz-score-num">${score}/${quizQuestions.length}</div>
+        <div style="font-size: 1.2rem; margin: 1rem 0;">${pct}% правильных ответов</div>
+        <div style="color: var(--text-muted); margin-bottom: 2rem;">${msg}</div>
+        <button class="quiz-next" onclick="resetQuiz()">🔄 Пройти ещё раз</button>
+      </div>
+    `;
+    return;
+  }
+  
+  const q = quizQuestions[currentQ];
+  answered = false;
+  
+  document.getElementById('quizContent').innerHTML = `
+    <div class="quiz-question">${q.q}</div>
+    <div class="quiz-options">
+      ${q.options.map((opt, i) => `
+        <button class="quiz-option" onclick="checkAnswer(${i})">${opt}</button>
+      `).join('')}
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+    <button class="quiz-next" id="quizNextBtn" onclick="nextQuestion()" disabled>Далее →</button>
+  `;
+}
+
+function checkAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  
+  const q = quizQuestions[currentQ];
+  const buttons = document.querySelectorAll('.quiz-option');
+  buttons.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q.correct) btn.classList.add('correct');
+    if (i === idx && i !== q.correct) btn.classList.add('wrong');
+  });
+  
+  const fb = document.getElementById('quizFeedback');
+  if (idx === q.correct) {
+    score++;
+    fb.className = 'quiz-feedback show correct';
+    fb.innerHTML = `✅ <b>Правильно!</b> ${q.explanation}`;
+  } else {
+    fb.className = 'quiz-feedback show wrong';
+    fb.innerHTML = `❌ <b>Неверно.</b> ${q.explanation}`;
+  }
+  
+  document.getElementById('quizNextBtn').disabled = false;
+}
+
+function nextQuestion() {
+  currentQ++;
+  renderQuiz();
+}
+
+function resetQuiz() {
+  currentQ = 0;
+  score = 0;
+  renderQuiz();
+}
+
+renderQuiz();
+
+// Fade in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Nav active on scroll
+const sections = ['formula','tenses','transform','usecases','rules','two-objects','quiz'];
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(id => {
+    const sec = document.getElementById(id);
+    if (sec && sec.getBoundingClientRect().top < 200) current = id;
+  });
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.getAttribute('onclick')?.includes(current)) btn.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
